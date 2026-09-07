@@ -12,3 +12,6 @@ win= tk.Tk()
 
 
 win.geometry("700x450")
+win.title("Real-Time Voice🎙️ Translator🔊")
+icon = tk.PhotoImage(file="icon.png")
+win.iconphoto(False, icon)
