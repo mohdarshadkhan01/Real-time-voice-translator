@@ -50,7 +50,6 @@ def update_input_lang_code(event):
 input_lang.bind("<<ComboboxSelected>>", lambda e: update_input_lang_code(e))
 if input_lang.get() == "": input_lang.set("auto")
 input_lang.pack()
-down_arrow = tk.Label(win, text="▼")
 down_arrow.pack()
 output_lang_label = tk.Label(win, text="Select Output Language:")
 output_lang_label.pack()
