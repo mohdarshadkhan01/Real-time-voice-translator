@@ -55,3 +55,13 @@ down_arrow.pack()
 output_lang_label = tk.Label(win, text="Select Output Language:")
 output_lang_label.pack()
 output_lang = ttk.Combobox(win, values=language_names)
+def update_output_lang_code(event):
+    selected_language_name = event.widget.get()
+    selected_language_code = language_codes[selected_language_name]
+    output_lang.set(selected_language_code)
+output_lang.bind("<<ComboboxSelected>>", lambda e: update_output_lang_code(e))
+if output_lang.get() == "": output_lang.set("en")
+output_lang.pack()
+blank_space = tk.Label(win, text="")
+blank_space.pack()
+keep_running = False
