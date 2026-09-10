@@ -90,3 +90,36 @@ def update_translation():
             except sr.RequestError:
                 output_text.insert(tk.END, "Could not request from Google!\n")
     win.after(100, update_translation)
+def run_translator():
+    global keep_running
+    if not keep_running:
+        keep_running = True
+        update_translation_thread = threading.Thread(target=update_translation)
+        update_translation_thread.start()
+def kill_execution():
+    global keep_running
+    keep_running = False
+def open_about_page():
+    about_window = tk.Toplevel()
+    about_window.title("About")
+    about_window.iconphoto(False, icon)
+    github_link = ttk.Label(about_window, text="github.com/SamirPaulb/real-time-voice-translator", underline=True, foreground="blue", cursor="hand2")
+    github_link.bind("<Button-1>", lambda e: open_webpage("https://github.com/SamirPaulb/real-time-voice-translator"))
+    github_link.pack()
+    about_text = tk.Text(about_window, height=10, width=50)
+    about_text.insert("1.0", """
+    A machine learning project that translates voice from one language to another in real time while preserving the tone and emotion of the speaker, and outputs the result in MP3 format. Choose input and output languages from the dropdown menu and start the translation!
+    """)
+    about_text.pack()
+    close_button = tk.Button(about_window, text="Close", command=about_window.destroy)
+    close_button.pack()
+def open_webpage(url):
+    import webbrowser
+    webbrowser.open(url)
+run_button = tk.Button(win, text="Start Translation", command=run_translator)
+run_button.place(relx=0.25, rely=0.9, anchor="c")
+kill_button = tk.Button(win, text="Kill Execution", command=kill_execution)
+kill_button.place(relx=0.5, rely=0.9, anchor="c")
+about_button = tk.Button(win, text="About this project", command=open_about_page)
+about_button.place(relx=0.75, rely=0.9, anchor="c")
+win.mainloop()
